@@ -19,10 +19,11 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-      - run: pip install -r requirements.txt
+      - name: Install project and test dependencies
+        run: pip install -e ".[dev]"
       - name: Validate notebook JSON
         run: python -m json.tool notebooks/research_quickstart.ipynb > /dev/null
       - name: Run reproducible example
-        run: python examples/quickstart.py
+        run: python -m examples.quickstart
       - name: Run tests
-        run: pytest -q
+        run: pytest
